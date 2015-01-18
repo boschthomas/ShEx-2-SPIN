@@ -691,15 +691,20 @@ se:Choice
         WHERE {
             # left and right property present
 			?this 
+			    a ?shape ;
 			    ?p1 ?o1 ;
 			    ?p2 ?o2 .
 			?leftPropertyConstraint oslc:propertyDefinition ?p1 .
 			?rightPropertyConstraint oslc:propertyDefinition ?p2 .
-            BIND (CONCAT(
-				\"p1 '\", 
+            BIND (CONCAT( 
+				xsd:string(?this),
+				\" (matching the shape '\", 
+				xsd:string(?shape),
+				\") can either have a '\",
 				xsd:string(?p1),
-				\"p2 '\", 
-				xsd:string(?p2)
+				\"' property or a '\",
+				xsd:string(?p2),
+				\"' property, but has both.\"
 				) AS ?label) .
         }
         """^^xsd:string ;
